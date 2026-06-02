@@ -11,8 +11,13 @@ public class AppTest
 
     @Test
     public  void launch() {
-        WebDriverManager.chromedriver().setup();
-        WebDriver driver = new ChromeDriver();
+     WebDriverManager.chromedriver().setup();
+        ChromeOptions options = new ChromeOptions();
+    options.addArguments("--headless");        // run without UI
+    options.addArguments("--no-sandbox");      // required in CI
+    options.addArguments("--disable-dev-shm-usage"); // avoid shared memory issues
+
+        WebDriver driver = new ChromeDriver(options);
         driver.manage().window().maximize();
         driver.get("https://www.google.com/");
         System.out.println("successfully application launched");
